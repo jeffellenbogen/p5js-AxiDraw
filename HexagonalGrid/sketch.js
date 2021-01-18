@@ -1,19 +1,19 @@
 //This p5.js sketch creates a grid of hexagons
 
-var winWidth = 14; // width of document in inches
-var winHeight = 11; // height of document in inches
-var ppi = 96;
+const winWidth = 14; // width of document in inches
+const winHeight = 11; // height of document in inches
+const ppi = 96;
 
-var winWidthScaled = winWidth * ppi;
-var winHeightScaled = winHeight * ppi;
+const winWidthScaled = winWidth * ppi;
+const winHeightScaled = winHeight * ppi;
 
 var count = 1;
-var numLayers = 6;
+const numLayers = 6;
 var strokeColor = 0;
 
-var edge = 1.5 * ppi;
-var num_rows = 10;
-var num_columns = 16; 
+const edge = 1.5 * ppi;
+const num_rows = 10;
+const num_columns = 16; 
 
 var gridRadius = .4 * ppi;
 var curRadius = gridRadius;
