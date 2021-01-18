@@ -1,3 +1,5 @@
+//This p5.js sketch creates a grid of hexagons
+
 var winWidth = 14; // width of document in inches
 var winHeight = 11; // height of document in inches
 var ppi = 96;
