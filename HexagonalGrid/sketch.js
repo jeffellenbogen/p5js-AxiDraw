@@ -8,21 +8,24 @@ const winWidthScaled = winWidth * ppi;
 const winHeightScaled = winHeight * ppi;
 
 var count = 1;
-const numLayers = 6;
-var strokeColor = 0;
+const numLayers = 8;
+
+var strokeColor = 40;
+const colorIncr = 10;
 
 const edge = 1.5 * ppi;
-const num_rows = 10;
-const num_columns = 16; 
+const num_rows = 6;
+const num_columns = 12; 
 
-var gridRadius = .4 * ppi;
+var gridRadius = .6 * ppi;
 var curRadius = gridRadius;
+var radiusIncr = -.07
 
 
 function setup() {
   colorMode(HSB, 100);
   createCanvas(winWidthScaled, winHeightScaled, SVG); // Create SVG Canvas
-  strokeWeight(2); // do 0.1 for laser
+  strokeWeight(3); // do 0.1 for laser
   stroke(strokeColor, 100, 100); // red is good for laser
   //fill(strokeColor,100,100);
   noFill(); // better not to have a fill for laser
@@ -42,6 +45,7 @@ function drawPolygon(polyXcenter, polyYcenter, polyRadius, polySides){
     vertex(currentX,currentY);
   }
   endShape(CLOSE);
+
 }
 
 function draw() {
@@ -64,22 +68,23 @@ function draw() {
       }
     }
   }
-  curRadius -= .05 * ppi;
+  curRadius += radiusIncr * ppi;
 
   if (count >= numLayers)
   {
-    save("hexagonGrid2.svg"); // give file name
+    //save("hexagonGrid2.svg"); // give file name
     print("saved hexagonGrid.svg")
     noLoop(); // we just want to export once
   }
   
   count++;
-  strokeColor = strokeColor + 50;
-
+  strokeColor += colorIncr;
+  
   if (strokeColor>100)
     {
       strokeColor = 0;
     }
+  
   stroke(strokeColor, 100, 100); // red is good for laser
   //fill(strokeColor, 100, 100);
 }
