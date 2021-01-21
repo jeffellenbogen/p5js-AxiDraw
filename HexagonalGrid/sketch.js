@@ -3,8 +3,8 @@
 var mainBuffer;
 var controlBuffer;
 
-const winWidth = 7; // width of document in inches
-const winHeight = 5; // height of document in inches
+const winWidth = 14; // width of document in inches
+const winHeight = 11; // height of document in inches
 const conrolWidth = 2;
 const ppi = 96;
 
@@ -18,13 +18,16 @@ const numLayers = 8;
 var strokeColor = 40;
 const colorIncr = 10;
 
-const edge = 1.5 * ppi;
-const num_rows = 5;
-const num_columns = 4; 
+var edge = 1.5 * ppi;
+var num_rows = 5;
+var num_columns = 4; 
 
 var gridRadius = .4 * ppi;
 var curRadius = gridRadius;
 var radiusIncr = -.04
+
+var sliderRows;
+var sliderCols;
 
 
 function setup() {
@@ -37,6 +40,11 @@ function setup() {
   stroke(strokeColor, 100, 100); // red is good for laser
   //fill(strokeColor,100,100);
   noFill(); // better not to have a fill for laser
+
+  sliderRows = createSlider(2,12,5);
+  sliderRows.position(winWidthScaled + 5,80);
+  sliderRows.style('controlWidthScaled', '80px');
+
 }
 
 function draw() {
@@ -86,7 +94,7 @@ function drawMainBuffer() {
 
   if (count >= numLayers)
   {
-    save("hexagonGrid2.svg"); // give file name
+    //save("hexagonGrid2.svg"); // give file name
     //print("saved hexagonGrid.svg")
     noLoop(); // we just want to export once
   }
@@ -109,6 +117,10 @@ function drawControlBuffer(){
   controlBuffer.fill(20,100,100);
   controlBuffer.textSize(20);
   controlBuffer.text("Control Buffer HERE", 5, 50);
+  var valRowSlider = sliderRows.value();
+  num_rows = valRowSlider; 
+
+
 
 }
 
