@@ -3,8 +3,8 @@
 var mainBuffer;
 var controlBuffer;
 
-const winWidth = 14; // width of document in inches
-const winHeight = 11; // height of document in inches
+const winWidth = 8; // width of document in inches
+const winHeight = 6; // height of document in inches
 const conrolWidth = 2;
 const ppi = 96;
 
@@ -41,7 +41,7 @@ function setup() {
   //fill(strokeColor,100,100);
   noFill(); // better not to have a fill for laser
 
-  sliderRows = createSlider(2,12,5);
+  sliderRows = createSlider(2,12,8);
   sliderRows.position(winWidthScaled + 5,80);
   sliderRows.style('controlWidthScaled', '80px');
 
@@ -97,6 +97,7 @@ function drawMainBuffer() {
     //save("hexagonGrid2.svg"); // give file name
     //print("saved hexagonGrid.svg")
     noLoop(); // we just want to export once
+    //background(255);
   }
   
   count++;
