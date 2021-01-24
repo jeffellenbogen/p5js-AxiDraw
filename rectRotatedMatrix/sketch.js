@@ -14,12 +14,11 @@ const ppi = 96;
 const windowWidth2 = winWidth * ppi;
 const windowHeight2 = winHeight * ppi;
 
-var rectWidth = .4 * ppi;
+var rectWidth = .2 * ppi;
 var rectHeight = rectWidth;
-var rectWidthIncr = .1 * ppi;
+var rectWidthIncr = .05  * ppi;
 var rectHeightIncr = rectWidthIncr;
-
-var rectRounding = .05  * ppi;
+var rectRounding = .02  * ppi;
 
 var count = 1
 var numLayers = 3
@@ -29,7 +28,7 @@ function setup() {
   colorMode(HSB, 100);
 
   createCanvas(windowWidth2, windowHeight2, SVG); // Create SVG Canvas
-  strokeWeight(1); // do 0.1 for laser
+  strokeWeight(2); // do 0.1 for laser
   stroke(strokeColor, 100, 100); // red is good for laser
   //fill(strokeColor,100,100);
   noFill(); // better not to have a fill for laser
@@ -39,8 +38,8 @@ function setup() {
 
 function draw() {
   edge = 1.5 * ppi;
-  num_rows = 14;
-  num_columns = 20; 
+  num_rows = 30;
+  num_columns = 40; 
   hSpace = (windowWidth2 - (2 * edge)) / (num_columns - 1);
   vSpace = (windowHeight2 - (2 * edge)) / (num_rows - 1 );
   var rectRotationAngle = 0;
@@ -68,7 +67,7 @@ function draw() {
   if (count >= numLayers)
   {
     //save each layer to a separate SVG to a file if desired
-    //save("polygonMatrix.svg"); // give file name
+    save("rectRotatedMatrix.svg"); // give file name
     //print("saved polygonMatrix.svg")
     noLoop(); // we just want to export once
   }
