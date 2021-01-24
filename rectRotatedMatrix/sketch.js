@@ -7,18 +7,22 @@ this will save an SVG file in your download folder
 
 strokeColor = 0;
 
-winWidth = 10; // width of document in inches
-winHeight = 6; // height of document in inches
-ppi = 96;
+const winWidth = 14; // width of document in inches
+const winHeight = 11; // height of document in inches
+const ppi = 96;
 
-windowWidth2 = winWidth * ppi;
-windowHeight2 = winHeight * ppi;
-rectHeight = .25 * ppi;
-rectWidth = .25 * ppi;
-rectRounding = .03 * ppi;
+const windowWidth2 = winWidth * ppi;
+const windowHeight2 = winHeight * ppi;
 
-count = 1
-numLayers = 3
+var rectWidth = .4 * ppi;
+var rectHeight = rectWidth;
+var rectWidthIncr = .1 * ppi;
+var rectHeightIncr = rectWidthIncr;
+
+var rectRounding = .05  * ppi;
+
+var count = 1
+var numLayers = 3
 
 function setup() {
   angleMode(DEGREES);
@@ -39,7 +43,8 @@ function draw() {
   num_columns = 20; 
   hSpace = (windowWidth2 - (2 * edge)) / (num_columns - 1);
   vSpace = (windowHeight2 - (2 * edge)) / (num_rows - 1 );
-  rectRotationAngle = 0;
+  var rectRotationAngle = 0;
+  var rectRotationAngleIncr = 1;
   for (let y=0; y<num_rows; y++)
   {
     for (let x=0; x<num_columns; x++)
@@ -47,7 +52,7 @@ function draw() {
       centerX = edge+(x*hSpace);
       centerY = edge+(y*vSpace);
       //rectRotationAngle = 0;
-      rectRotationAngle += 2;
+      rectRotationAngle += rectRotationAngleIncr;
       //rectRotationAngle = random(0,90);
       push();
       rectMode(CENTER);
@@ -67,8 +72,8 @@ function draw() {
     //print("saved polygonMatrix.svg")
     noLoop(); // we just want to export once
   }
-  rectWidth+=(.05*ppi);
-  rectHeight+=(.05*ppi);
+  rectWidth+=rectWidthIncr;
+  rectHeight+=rectHeightIncr;
 
   count++;
   strokeColor = strokeColor + 30;
