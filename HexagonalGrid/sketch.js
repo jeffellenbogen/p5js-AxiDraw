@@ -1,11 +1,16 @@
 //This p5.js sketch creates a grid of hexagons
 
-const winWidth = 14; // width of document in inches
-const winHeight = 11; // height of document in inches
+var mainBuffer;
+var controlBuffer;
+
+const winWidth = 8; // width of document in inches
+const winHeight = 6; // height of document in inches
+const conrolWidth = 2;
 const ppi = 96;
 
 const winWidthScaled = winWidth * ppi;
 const winHeightScaled = winHeight * ppi;
+const controlWidthScaled = conrolWidth * ppi;
 
 var count = 1;
 const numLayers = 8;
@@ -13,23 +18,40 @@ const numLayers = 8;
 var strokeColor = 40;
 const colorIncr = 10;
 
-const edge = 1.5 * ppi;
-const num_rows = 6;
-const num_columns = 12; 
+var edge = 1.5 * ppi;
+var num_rows = 5;
+var num_columns = 4; 
 
-var gridRadius = .6 * ppi;
+var gridRadius = .4 * ppi;
 var curRadius = gridRadius;
-var radiusIncr = -.07
+var radiusIncr = -.04
+
+var sliderRows;
+var sliderCols;
 
 
 function setup() {
   colorMode(HSB, 100);
-  createCanvas(winWidthScaled, winHeightScaled, SVG); // Create SVG Canvas
+  createCanvas(winWidthScaled + controlWidthScaled, winHeightScaled, SVG); // Create SVG Canvas
+  mainBuffer = createGraphics(winWidthScaled, winHeightScaled, SVG);
+  controlBuffer = createGraphics(controlWidthScaled, winHeightScaled, SVG);
+
   strokeWeight(3); // do 0.1 for laser
   stroke(strokeColor, 100, 100); // red is good for laser
   //fill(strokeColor,100,100);
   noFill(); // better not to have a fill for laser
- 
+
+  sliderRows = createSlider(2,12,8);
+  sliderRows.position(winWidthScaled + 5,80);
+  sliderRows.style('controlWidthScaled', '80px');
+
+}
+
+function draw() {
+  drawMainBuffer();
+  drawControlBuffer();
+  image(mainBuffer,0,0);
+  image(controlBuffer,winWidthScaled,0);
 }
 
 
@@ -48,7 +70,7 @@ function drawPolygon(polyXcenter, polyYcenter, polyRadius, polySides){
 
 }
 
-function draw() {
+function drawMainBuffer() {
 
   let numSides = 6;
   let apothem = gridRadius * cos(PI/numSides)
@@ -73,8 +95,9 @@ function draw() {
   if (count >= numLayers)
   {
     //save("hexagonGrid2.svg"); // give file name
-    print("saved hexagonGrid.svg")
+    //print("saved hexagonGrid.svg")
     noLoop(); // we just want to export once
+    //background(255);
   }
   
   count++;
@@ -89,6 +112,18 @@ function draw() {
   //fill(strokeColor, 100, 100);
 }
 
+function drawControlBuffer(){
+  controlBuffer.colorMode(HSB,100);
+  controlBuffer.background(100,100,100);
+  controlBuffer.fill(20,100,100);
+  controlBuffer.textSize(20);
+  controlBuffer.text("Control Buffer HERE", 5, 50);
+  var valRowSlider = sliderRows.value();
+  num_rows = valRowSlider; 
+
+
+
+}
 
 
 
