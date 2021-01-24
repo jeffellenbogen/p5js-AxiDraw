@@ -5,25 +5,43 @@ see -https://github.com/zenozeng/p5.js-svg
 this will save an SVG file in your download folder
 */
 
-strokeColor = 0;
 
-const winWidth = 14; // width of document in inches
-const winHeight = 11; // height of document in inches
+
+const winWidth = 12; // width of document in inches
+const winHeight = 8; // height of document in inches
 const ppi = 96;
 
 const windowWidth2 = winWidth * ppi;
 const windowHeight2 = winHeight * ppi;
 
-var rectWidth = .2 * ppi;
-var rectHeight = rectWidth;
-var rectWidthIncr = .05  * ppi;
-var rectHeightIncr = rectWidthIncr;
-var rectRounding = .02  * ppi;
+var rectWidth;
+var rectHeight;
+var rectWidthIncr;
+var rectHeightIncr;
+var rectRounding;
 
-var count = 1
-var numLayers = 3
+var rectStartRotationAngle;
+var rectRotationAngleIncr;
+var count;
+var numLayers;
+var strokeColor;
+
+function initializeVars(){
+  count = 1;
+  numLayers = 3;
+  strokeColor = 0;
+  rectWidth = .5 * ppi;
+  rectHeight = rectWidth;
+  rectWidthIncr = .1  * ppi;
+  rectHeightIncr = rectWidthIncr;
+  rectRounding = .02  * ppi;
+  rectStartRotationAngle = random(-90,90);
+  rectRotationAngleIncr = 1;
+}
 
 function setup() {
+  initializeVars();
+  loop();
   angleMode(DEGREES);
   colorMode(HSB, 100);
 
@@ -32,45 +50,58 @@ function setup() {
   stroke(strokeColor, 100, 100); // red is good for laser
   //fill(strokeColor,100,100);
   noFill(); // better not to have a fill for laser
- 
+
 }
 
 
 function draw() {
   edge = 1.5 * ppi;
-  num_rows = 30;
-  num_columns = 40; 
+  num_rows = 8;
+  num_columns = 20; 
   hSpace = (windowWidth2 - (2 * edge)) / (num_columns - 1);
   vSpace = (windowHeight2 - (2 * edge)) / (num_rows - 1 );
-  var rectRotationAngle = 0;
-  var rectRotationAngleIncr = 1;
+  let rectRotationAngle = rectStartRotationAngle; 
   for (let y=0; y<num_rows; y++)
   {
     for (let x=0; x<num_columns; x++)
     { 
       centerX = edge+(x*hSpace);
       centerY = edge+(y*vSpace);
-      //rectRotationAngle = 0;
-      rectRotationAngle += rectRotationAngleIncr;
-      //rectRotationAngle = random(0,90);
+      rectRotationAngle += rectRotationAngleIncr;     
       push();
-      rectMode(CENTER);
-      translate(centerX,centerY); 
-      rotate(rectRotationAngle);
-      rect(0,0,rectWidth,rectHeight, rectRounding)
+        rectMode(CENTER);
+        translate(centerX,centerY); 
+        rotate(rectRotationAngle);
+        rect(0,0,rectWidth,rectHeight, rectRounding)
       pop();
 
     }
   }
 
+  function saveSVG(){
+    save("rectRotatedMatrix.svg"); // give file name
+    print("Saved SVG!")
+    initializeVars();
+  }
+
   
   if (count >= numLayers)
   {
-    //save each layer to a separate SVG to a file if desired
-    save("rectRotatedMatrix.svg"); // give file name
-    //print("saved polygonMatrix.svg")
+      //save each layer to a separate SVG to a file if desired
+    button = createButton("saveSVG");
+    button.position(windowWidth2-100, windowHeight2-100);
+    button.mouseClicked(saveSVG);
     noLoop(); // we just want to export once
+    //saveSVG();
+    //save("rectRotatedMatrix.svg"); 
   }
+  /*
+  else
+  {
+    loop();
+  }
+  */
+  
   rectWidth+=rectWidthIncr;
   rectHeight+=rectHeightIncr;
 
