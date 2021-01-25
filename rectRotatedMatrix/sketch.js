@@ -30,18 +30,17 @@ function initializeVars(){
   count = 1;
   numLayers = 3;
   strokeColor = 0;
-  rectWidth = .5 * ppi;
+  rectWidth = .3 * ppi;
   rectHeight = rectWidth;
   rectWidthIncr = .1  * ppi;
   rectHeightIncr = rectWidthIncr;
   rectRounding = .02  * ppi;
   rectStartRotationAngle = random(-90,90);
-  rectRotationAngleIncr = 1;
+  rectRotationAngleIncr = 5;
 }
 
 function setup() {
   initializeVars();
-  loop();
   angleMode(DEGREES);
   colorMode(HSB, 100);
 
@@ -84,13 +83,23 @@ function draw() {
     initializeVars();
   }
 
+function reloadPage(){
+  location.reload();
+}
   
   if (count >= numLayers)
   {
       //save each layer to a separate SVG to a file if desired
-    button = createButton("saveSVG");
-    button.position(windowWidth2-100, windowHeight2-100);
-    button.mouseClicked(saveSVG);
+    saveButton = createButton("saveSVG");
+    saveButton.position(windowWidth2-100, windowHeight2-100);
+    saveButton.mouseClicked(saveSVG);
+
+      //save each layer to a separate SVG to a file if desired
+    reloadButton = createButton("reload page");
+    reloadButton.position(windowWidth2-100, windowHeight2-125);
+    reloadButton.mouseClicked(reloadPage);
+
+
     noLoop(); // we just want to export once
     //saveSVG();
     //save("rectRotatedMatrix.svg"); 
