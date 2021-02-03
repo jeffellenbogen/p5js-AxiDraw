@@ -42,7 +42,7 @@ function draw() {
   let lastX = -1;
   let lastY = -1;
 
-  for (let x = edgePixels ; x < windowWidth2 - edgePixels; x+=5)
+  for (let x = edgePixels ; x < windowWidth2 - edgePixels; x+=1)
   {
     //let y= sin(degrees(x - horizontalOffset ))+ verticalOffset;
     let y = (x - horizontalOffset) * angleFactor + amplitudeFactor * sin(degrees(x - horizontalOffset)) + verticalOffset
