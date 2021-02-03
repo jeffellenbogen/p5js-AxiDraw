@@ -6,7 +6,6 @@ this will save an SVG file in your download folder
 */
 
 
-
 const winWidth = 12; // width of document in inches
 const winHeight = 8; // height of document in inches
 const ppi = 96;
@@ -26,9 +25,16 @@ var count;
 var numLayers;
 var strokeColor;
 
+var edge = 1.5 * ppi;
+var num_rows = 8;
+var num_columns = 20; 
+var hSpace = (windowWidth2 - (2 * edge)) / (num_columns - 1);
+var vSpace = (windowHeight2 - (2 * edge)) / (num_rows - 1 );
+
+
 function initializeVars(){
   count = 1;
-  numLayers = 3;
+  numLayers = 1;
   strokeColor = 0;
   rectWidth = .3 * ppi;
   rectHeight = rectWidth;
@@ -44,7 +50,7 @@ function setup() {
   angleMode(DEGREES);
   colorMode(HSB, 100);
 
-  createCanvas(windowWidth2, windowHeight2, SVG); // Create SVG Canvas
+  createCanvas(windowWidth2, windowHeight2); 
   strokeWeight(2); // do 0.1 for laser
   stroke(strokeColor, 100, 100); // red is good for laser
   //fill(strokeColor,100,100);
@@ -52,13 +58,23 @@ function setup() {
 
 }
 
+function saveToSVG(){
+    count = 0;
+    clear();
+    loop();
+    createCanvas(windowWidth2, windowHeight2, SVG); // Create SVG Canvas
+    drawMatrix();
+    save("rectRotatedMatrix.svg"); // give file name
+    print("Saved SVG!")
+    //initializeVars();   
+}
 
-function draw() {
-  edge = 1.5 * ppi;
-  num_rows = 8;
-  num_columns = 20; 
-  hSpace = (windowWidth2 - (2 * edge)) / (num_columns - 1);
-  vSpace = (windowHeight2 - (2 * edge)) / (num_rows - 1 );
+function reloadPage(){
+  print("reload page!");
+  location.reload();
+}
+
+function drawMatrix(){
   let rectRotationAngle = rectStartRotationAngle; 
   for (let y=0; y<num_rows; y++)
   {
@@ -76,40 +92,26 @@ function draw() {
 
     }
   }
-
-  function saveSVG(){
-    save("rectRotatedMatrix.svg"); // give file name
-    print("Saved SVG!")
-    initializeVars();
-  }
-
-function reloadPage(){
-  location.reload();
 }
+
+function draw() {
+      //save each layer to a separate SVG to a file if desired
+  saveButton = createButton("saveSVG");
+  saveButton.position(windowWidth2-100, windowHeight2-100);
+  saveButton.mouseClicked(saveToSVG);
+
+    //save each layer to a separate SVG to a file if desired
+  reloadButton = createButton("reload page");
+  reloadButton.position(windowWidth2-100, windowHeight2-125);
+  reloadButton.mouseClicked(reloadPage);
   
+  
+  drawMatrix();
+
   if (count >= numLayers)
   {
-      //save each layer to a separate SVG to a file if desired
-    saveButton = createButton("saveSVG");
-    saveButton.position(windowWidth2-100, windowHeight2-100);
-    saveButton.mouseClicked(saveSVG);
-
-      //save each layer to a separate SVG to a file if desired
-    reloadButton = createButton("reload page");
-    reloadButton.position(windowWidth2-100, windowHeight2-125);
-    reloadButton.mouseClicked(reloadPage);
-
-
     noLoop(); // we just want to export once
-    //saveSVG();
-    //save("rectRotatedMatrix.svg"); 
   }
-  /*
-  else
-  {
-    loop();
-  }
-  */
   
   rectWidth+=rectWidthIncr;
   rectHeight+=rectHeightIncr;
